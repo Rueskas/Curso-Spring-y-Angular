@@ -1,0 +1,13 @@
+<button (click)="setHidden()" type="button" name="button" class="btn  my-3" [ngClass]="hidden == true? 'btn-primary' : 'btn-danger' ">
+	{{ hidden == true ? 'Show' : 'Hide'}}
+</button>
+<div class="card">
+	<div class="card-header">
+		List of Courses
+	</div>
+	<ul class="list-group" *ngIf="!hidden">
+		<li class="list-group-item" *ngFor="let course of coursesList">
+			{{course}}
+		</li>
+	</ul>
+</div>

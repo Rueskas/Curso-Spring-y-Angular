@@ -1,0 +1,30 @@
+<div class="card bg-light mb-3">
+	<div class="card-header">Customers</div>
+	<div class="card-body">
+		<div class="mb-4">
+			<button type="button" name="button" class="btn btn-primary brn-rounded" [routerLink]="['/customers/form']">
+				Create Customer
+			</button>
+		</div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Name</th>
+					<th>Surname</th>
+					<th>Email</th>
+					<th>Created At</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let customer of customers">
+					<td>{{customer.getId()}}</td>
+					<td>{{customer.getName()}}</td>
+					<td>{{customer.getSurname()}}</td>
+					<td>{{customer.getEmail()}}</td>
+					<td>{{customer.getCreatedAt()}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
