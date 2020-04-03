@@ -6,7 +6,7 @@
 				Create Customer
 			</button>
 		</div>
-		<table class="table table-bordered">
+		<table class="table table-bordered" *ngIf="customers?.length > 0 else adviseIsEmpty">
 			<thead>
 				<tr>
 					<th>Id</th>
@@ -14,6 +14,8 @@
 					<th>Surname</th>
 					<th>Email</th>
 					<th>Created At</th>
+					<th>Edit</th>
+					<th>Delete</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,8 +25,24 @@
 					<td>{{customer.getSurname()}}</td>
 					<td>{{customer.getEmail()}}</td>
 					<td>{{customer.getCreatedAt()}}</td>
+					<td>
+
+						<button type="button" name="button" class="btn col-sm btn-success" [routerLink]="['/customers/form/', customer.getId()]">Edit</button>
+
+					</td>
+					<td>
+
+						<button type="button" name="button" class="btn col-sm btn-danger" (click)="delete(customer)">Delete</button>
+
+					</td>
 				</tr>
 			</tbody>
 		</table>
+		<ng-template #adviseIsEmpty>
+			<div class="alert alert-info">
+				<h5>Does not exist any customer</h5>
+			</div>
+		</ng-template>
+
 	</div>
 </div>
