@@ -1,7 +1,7 @@
 export class Customer {
 
   constructor(private id?: number, private name?: string, private surname?: string,
-    private email?: string, private createdAt?: string) {
+    private email?: string, private createdAt?: string, private avatar?: string) {
   }
 
 
@@ -25,6 +25,10 @@ export class Customer {
     return this.createdAt;
   }
 
+  public getAvatar(): string {
+    return this.avatar;
+  }
+
   public setId(id: number): void {
     this.id = id;
   }
@@ -40,5 +44,8 @@ export class Customer {
   }
   public setCreatedAt(createdAt: string): void {
     this.createdAt = createdAt;
+  }
+  public setAvatar(avatar: string): void {
+    this.avatar = avatar;
   }
 }

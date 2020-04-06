@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 export class FormComponent implements OnInit {
   title: string = "Create Customer";
   customer: Customer = new Customer();
+  errors: String[];
   constructor(private _customerService: CustomerService, private _router: Router,
     private _activatedRoute: ActivatedRoute) { }
 
@@ -23,8 +24,10 @@ export class FormComponent implements OnInit {
       let id = params['id'];
       if (id) {
         this._customerService.getCustomer(id).subscribe(
-          c => this.customer = new Customer(
-            (c as any).id, (c as any).name, (c as any).surname, (c as any).email, (c as any).createdAt)
+          c => {
+            this.customer = c;
+            console.log(c);
+          }
         )
       }
     })
@@ -35,6 +38,11 @@ export class FormComponent implements OnInit {
       _ => {
         Swal.fire('Created!', `Customer ${this.customer.getName()} has been created successfully.`, 'success');
         this._router.navigate(['/customers']);
+      },
+      err => {
+        this.errors = err.error.errors as String[];
+        console.error("Status Code: " + err.status);
+        console.error(err.error.errors)
       }
     )
   }
@@ -44,6 +52,11 @@ export class FormComponent implements OnInit {
       _ => {
         Swal.fire('Edited!', `Customer ${this.customer.getName()} has been edited successfully.`, 'success');
         this._router.navigate(['/customers']);
+      },
+      err => {
+        this.errors = err.error.errors as String[];
+        console.error("Status Code: " + err.status);
+        console.error(err.error.errors)
       }
     )
   }
