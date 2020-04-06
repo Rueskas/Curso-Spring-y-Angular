@@ -22,7 +22,6 @@ const routes: Routes = [
   { path: '', redirectTo: '/customers', pathMatch: 'full' },
   { path: 'directives', component: DirectiveComponent },
   { path: 'customers', component: CustomersComponent },
-  { path: 'customers/:id', component: DetailComponent },
   { path: 'customers/page/:page', component: CustomersComponent },
   { path: 'customers/form', component: FormComponent },
   { path: 'customers/form/:id', component: FormComponent }

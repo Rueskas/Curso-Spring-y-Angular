@@ -1,3 +1,5 @@
+<customer-detail *ngIf="selectedCustomer" [customer]=selectedCustomer></customer-detail>
+
 <div class="card bg-light mb-3 mt-4">
 	<div class="card-header">Customers</div>
 	<div class="card-body">
@@ -20,7 +22,12 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let customer of customers">
-					<td><button [routerLink]="['/customers', customer.getId()]" class="btn col-sm btn-primary">{{customer.getId()}}</button></td>
+					<td>
+						<button (click)="selectCustomer(customer)" class="btn col-sm btn-primary">
+							<!--[routerLink]="['/customers', customer.getId()]"-->
+							{{customer.getId()}}
+						</button>
+					</td>
 					<td>{{customer.getName()}}</td>
 					<td>{{customer.getSurname() | uppercase}}</td>
 					<td>{{customer.getEmail()}}</td>

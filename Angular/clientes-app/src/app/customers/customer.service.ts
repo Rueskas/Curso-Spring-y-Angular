@@ -3,7 +3,7 @@ import { formatDate, DatePipe } from '@angular/common';
 import { Customer } from './customer';
 //import { CUSTOMERS } from './customers.json';
 import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Global } from '../../assets/global';
 import { map, catchError, tap } from 'rxjs/operators';
 import swal from 'sweetalert2';
@@ -84,20 +84,15 @@ export class CustomerService {
       }));
   }
 
-  public uploadAvatar(file: File, id: string): Observable<Customer> {
+  public uploadAvatar(file: File, id: string): Observable<HttpEvent<{}>> {
     let formData = new FormData();
     formData.append("file", file);
     formData.append("id", id);
-    return this._http.post(Global.url + "/customers/upload", formData).pipe(
-      map((res: any) =>
-        new Customer(res.customer.id, res.customer.name, res.customer.surname,
-          res.customer.email, res.customer.createdAt, res.customer.avatar)
-      ),
-      catchError(e => {
-        console.error(e)
-        swal.fire(e.error.error, e.error.message, 'error');
-        return throwError(e);
-      })
-    );
+
+    const req = new HttpRequest('POST', Global.url + "/customers/upload", formData, {
+      reportProgress: true
+    });
+
+    return this._http.request(req);
   }
 }
