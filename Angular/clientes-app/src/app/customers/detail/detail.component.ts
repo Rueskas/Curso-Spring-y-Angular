@@ -18,7 +18,7 @@ export class DetailComponent implements OnInit {
   title: String = "Customer Detail";
   selectedAvatar: File;
   progress: number = 0;
-  url = Global.url;
+  url = Global.URL;
   constructor(private _customerService: CustomerService,
     public modalService: ModalService) { }
 

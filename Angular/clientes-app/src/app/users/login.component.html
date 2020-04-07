@@ -1,0 +1,21 @@
+<div class="card border-primary mt-4 text-center">
+	<div class="card-header">
+		{{title}}
+	</div>
+	<div class="card-body">
+		<form>
+			<div class="form-group">
+				<input type="text" [(ngModel)]="user.username" style="display: inline; width:40%" class="form-control text-center" name="username" id="username" placeholder="Username" autofocus>
+			</div>
+
+
+			<div class="form-group">
+				<input type="password" [(ngModel)]="user.password" style="display: inline; width:40%" class="form-control text-center" name="password" id="password" placeholder="Password">
+			</div>
+
+			<div class="form-group">
+				<input type="submit" (click)="login()" style="display: inline; width:40%" class="btn btn-primary btn-lg btn-block" value="login">
+			</div>
+		</form>
+	</div>
+</div>

@@ -15,7 +15,7 @@ export class CustomersComponent implements OnInit {
   customers: Customer[];
   paginator: any;
   selectedCustomer: Customer;
-  url = Global.url;
+  url = Global.URL;
   constructor(private _customerService: CustomerService,
     private _activatedRoute: ActivatedRoute, private _modalService: ModalService) {
   }
