@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.iessanvicente.springboot.backend.apirest.models.dao.ICustomerDao;
 import com.iessanvicente.springboot.backend.apirest.models.entity.Customer;
+import com.iessanvicente.springboot.backend.apirest.models.entity.Region;
 
 //@RequiredArgsConstructor 
 @Service
@@ -56,6 +57,12 @@ public class CustomerServiceImpl implements ICustomerService {
 	public boolean existsById(Long id) {
 		return customerDao.existsById(id);
 		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Region> findAllRegions() {
+		return customerDao.findAllRegions();
 	}
 
 
