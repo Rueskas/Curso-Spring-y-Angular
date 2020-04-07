@@ -15,17 +15,30 @@ import javax.persistence.Table;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="roles")
 public class Role implements Serializable, GrantedAuthority {
 
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@ToString.Exclude
 	private Long id;
 	
 	@Column(unique=true, length=20)
 	private String name;
 	
+	@JsonIgnore
+	@ToString.Exclude
 	@ManyToMany(mappedBy="roles")
 	List<User> users = new ArrayList<User>();
 	/**
@@ -36,5 +49,5 @@ public class Role implements Serializable, GrantedAuthority {
 	public String getAuthority() {
 		return new SimpleGrantedAuthority(name).getAuthority();
 	}
-
+	
 }
