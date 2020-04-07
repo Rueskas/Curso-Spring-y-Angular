@@ -11,7 +11,7 @@
 			<div class="form-group row">
 				<label for="name" class="col-form-label col-sm-2">Name</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" tag="name" [ngModel]='customer.getName()' (ngModelChange)="customer.setName($event)" name="name" #name="ngModel">
+					<input type="text" class="form-control" tag="name" [(ngModel)]='customer.name' name="name" #name="ngModel">
 					<!--required minlength="4"-->
 					<div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
 						<div *ngIf="name.errors.required">
@@ -26,7 +26,7 @@
 			<div class="form-group row">
 				<label for="surname" class="col-form-label col-sm-2">Surname</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" name="surname" [ngModel]='customer.getSurname()' (ngModelChange)="customer.setSurname($event)" #surname="ngModel">
+					<input type="text" class="form-control" name="surname" [(ngModel)]='customer.surname' #surname="ngModel">
 					<!--required-->
 					<div class="alert alert-danger" *ngIf="surname.invalid && (surname.dirty ||surname.touched)">
 						<div *ngIf="surname.errors.required">
@@ -38,7 +38,7 @@
 			<div class="form-group row">
 				<label for="email" class="col-form-label col-sm-2">Email</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" name="email" [ngModel]='customer.getEmail()' (ngModelChange)="customer.setEmail($event)" #email="ngModel">
+					<input type="text" class="form-control" name="email" [(ngModel)]='customer.email' #email="ngModel">
 					<!--required email-->
 					<div class="alert alert-danger" *ngIf="email.invalid && (email.dirty ||email.touched)">
 						<div *ngIf="email.errors.required">
@@ -53,14 +53,25 @@
 			<div class="form-group row">
 				<label for="createdAt" class="col-form-label col-sm-2">Created At</label>
 				<div class="col-sm-6">
-					<input [matDatepicker]="datePicker" class="form-control" name="createdAt" [ngModel]='customer.getCreatedAt()' (ngModelChange)="customer.setCreatedAt($event)" style="display: inline; width: 300px;">
+					<input [matDatepicker]="datePicker" class="form-control" name="createdAt" [(ngModel)]='customer.createdAt' style="display: inline; width: 300px;">
 					<mat-datepicker-toggle [for]="datePicker"></mat-datepicker-toggle>
 					<mat-datepicker #datePicker></mat-datepicker>
 				</div>
 			</div>
+
+			<div class="form-group row">
+				<label for="createdAt" class="col-form-label col-sm-2">Region</label>
+				<div class="col-sm-6">
+					<select [compareWith]="compareRegion" class="form-control" name="regions" [(ngModel)]='customer.region' style="width: 500px;">
+						<option [ngValue]="undefined">Select a Region</option>
+						<option *ngFor="let region of regions" [ngValue]="region">{{region.name}}</option>
+					</select>
+				</div>
+			</div>
+
 			<div class="form-group row">
 				<div class="col-sm-6">
-					<button class="btn btn-primary" role="button" (click)="create()" *ngIf="!customer.getId() else editButton" [disabled]="!form.form.valid">Save</button>
+					<button class="btn btn-primary" role="button" (click)="create()" *ngIf="!customer.id else editButton" [disabled]="!form.form.valid">Save</button>
 					<ng-template #editButton>
 						<button class="btn btn-success" role="button" (click)="update()" [disabled]="!form.form.valid">Edit</button>
 					</ng-template>

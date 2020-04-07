@@ -2,10 +2,10 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Customer } from '../customer';
 import { CustomerService } from '../customer.service';
 //import { ActivatedRoute } from '@angular/router';
-import { Global } from '../../../assets/global'
 import swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { ModalService } from './modal.service';
+import { Global } from '../../../assets/global'
 
 @Component({
   selector: 'customer-detail',
@@ -16,9 +16,9 @@ export class DetailComponent implements OnInit {
 
   @Input() customer: Customer;
   title: String = "Customer Detail";
-  url = Global.url;
   selectedAvatar: File;
   progress: number = 0;
+  url = Global.url;
   constructor(private _customerService: CustomerService,
     public modalService: ModalService) { }
 
@@ -53,15 +53,14 @@ export class DetailComponent implements OnInit {
     if (!this.selectedAvatar) {
       swal.fire('Error Upload', 'You must to select an image first', 'error');
     } else {
-      this._customerService.uploadAvatar(this.selectedAvatar, "" + this.customer.getId())
+      this._customerService.uploadAvatar(this.selectedAvatar, "" + this.customer.id)
         .subscribe(event => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progress = Math.round((event.loaded / event.total) * 100);
           } else if (event.type === HttpEventType.Response) {
             let res: any = event.body;
-            this.customer = new Customer(res.customer.id, res.customer.name,
-              res.customer.surname, res.customer.email, res.customer.createdAt,
-              res.customer.avatar);
+            this.customer = res.customer as Customer;
+            this.modalService.notifyUpload.emit(this.customer);
             swal.fire('Avatar uploaded', res.message, 'success');
           }
         })

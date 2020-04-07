@@ -22,22 +22,25 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let customer of customers">
-					<td>
-						<button (click)="selectCustomer(customer)" class="btn col-sm btn-primary">
-							<!--[routerLink]="['/customers', customer.getId()]"-->
+					<td style="width: 100px">
+						<img style="width: 64px;cursor:pointer;" class="img-thumbnail rounded" (click)="selectCustomer(customer)" [src]="customer.avatar != null? url+'/uploads/img/' + customer.avatar : 'https://api.adorable.io/avatars/64/'+customer.email"
+							alt="">
+
+						<!--<button class="btn col-sm btn-primary">
+							[routerLink]="['/customers', customer.getId()]"
 							{{customer.getId()}}
-						</button>
+						</button>-->
 					</td>
-					<td>{{customer.getName()}}</td>
-					<td>{{customer.getSurname() | uppercase}}</td>
-					<td>{{customer.getEmail()}}</td>
-					<td>{{customer.getCreatedAt() | date:'EEEE dd, MMMM yyyy'}}</td>
-					<td>
+					<td>{{customer.name}}</td>
+					<td>{{customer.surname | uppercase}}</td>
+					<td>{{customer.email}}</td>
+					<td>{{customer.createdAt | date:'EEEE dd, MMMM yyyy'}}</td>
+					<td style="width: 100px">
 
-						<button type="button" name="button" class="btn col-sm btn-success" [routerLink]="['/customers/form/', customer.getId()]">Edit</button>
+						<button type="button" name="button" class="btn col-sm btn-success" [routerLink]="['/customers/form/', customer.id]">Edit</button>
 
 					</td>
-					<td>
+					<td style="width: 40px">
 
 						<button type="button" name="button" class="btn col-sm btn-danger" (click)="delete(customer)">Delete</button>
 

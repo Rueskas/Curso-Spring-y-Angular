@@ -8,6 +8,7 @@ import { Global } from '../../assets/global';
 import { map, catchError, tap } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router'
+import { Region } from './region';
 
 
 @Injectable({
@@ -26,12 +27,14 @@ export class CustomerService {
     return this._http.get(Global.url + '/customers/page/' + page);
   }
 
+  public getRegions(): Observable<Region[]> {
+    return this._http.get<Region[]>(Global.url + '/customers/regions');
+  }
+
   public getCustomer(id: number): Observable<Customer> {
     return this._http.get<Customer>(Global.url + '/customers/' + id)
       .pipe(
-        map(response => response = new Customer(
-          (response as any).customer.id, (response as any).customer.name,
-          (response as any).customer.surname, (response as any).customer.email, (response as any).customer.createdAt)),
+        map((response: any) => response.customer as Customer),
         catchError(e => {
           console.error(e.error.message);
           swal.fire(e.error.message, e.error.error, 'error');
@@ -42,9 +45,7 @@ export class CustomerService {
   public postCustomer(customer: Customer): Observable<any> {
     return this._http.post<any>(
       Global.url + "/customers", customer, { headers: this.httpHeaders }).pipe(
-        map(response => response = new Customer(
-          (response as any).customer.id, (response as any).customer.name,
-          (response as any).customer.surname, (response as any).customer.email, (response as any).customer.createdAt)),
+        map((response: any) => response.customer as Customer),
         catchError(e => {
           if (e.status == 400) {
             return throwError(e);
@@ -58,11 +59,9 @@ export class CustomerService {
 
   public putCustomer(customer: Customer): Observable<Customer> {
     return this._http.put(
-      Global.url + "/customers/" + customer.getId(), customer,
+      Global.url + "/customers/" + customer.id, customer,
       { headers: this.httpHeaders }).pipe(
-        map(response => response = new Customer(
-          (response as any).customer.id, (response as any).customer.name,
-          (response as any).customer.surname, (response as any).customer.email, (response as any).customer.createdAt)),
+        map((response: any) => response.customer as Customer),
         catchError(e => {
           if (e.status == 400) {
             return throwError(e);

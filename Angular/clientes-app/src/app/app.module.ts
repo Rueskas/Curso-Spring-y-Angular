@@ -48,7 +48,7 @@ const routes: Routes = [
     MatDatepickerModule
   ],
   providers: [CustomerService,
-    { provide: LOCALE_ID, useValue: 'en_US' }],
+    { provide: LOCALE_ID, useValue: 'en-US' }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

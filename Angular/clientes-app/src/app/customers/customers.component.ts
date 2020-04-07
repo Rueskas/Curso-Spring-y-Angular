@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router'
 import { tap } from 'rxjs/operators';
 import { ModalService } from './detail/modal.service';
+import { Global } from '../../assets/global'
 
 @Component({
   selector: 'app-customers',
@@ -14,6 +15,7 @@ export class CustomersComponent implements OnInit {
   customers: Customer[];
   paginator: any;
   selectedCustomer: Customer;
+  url = Global.url;
   constructor(private _customerService: CustomerService,
     private _activatedRoute: ActivatedRoute, private _modalService: ModalService) {
   }
@@ -29,16 +31,16 @@ export class CustomersComponent implements OnInit {
         .pipe(
           tap(
             (response: any) => {
-              console.log(response);
-              this.customers = response.content.map(customer => {
-                return new Customer(
-                  customer.id, customer.name, customer.surname, customer.email, customer.createdAt)
-              })
+              this.customers = response.content as Customer[];
               this.paginator = response;
             }
           )
         )
         .subscribe();
+    });
+
+    this._modalService.notifyUpload.subscribe(c => {
+      this.customers.filter(custom => custom.id == c.id)[0].avatar = c.avatar;
     });
   }
 
@@ -61,13 +63,13 @@ export class CustomersComponent implements OnInit {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
-        this._customerService.deleteCustomer(customer.getId())
+        this._customerService.deleteCustomer(customer.id)
           .subscribe(
             _ => {
-              this.customers = this.customers.filter(c => c.getId() != customer.getId())
+              this.customers = this.customers.filter(c => c.id != customer.id);
               swalWithBootstrapButtons.fire(
                 'Deleted!',
-                'Customer ' + customer.getName() + ' has been deleted.',
+                'Customer ' + customer.name + ' has been deleted.',
                 'success'
               );
             }
@@ -75,7 +77,7 @@ export class CustomersComponent implements OnInit {
       } else {
         swalWithBootstrapButtons.fire(
           'Canceled!',
-          'Customer ' + customer.getName() + ' has not been deleted.',
+          'Customer ' + customer.name + ' has not been deleted.',
           'error'
         );
       }

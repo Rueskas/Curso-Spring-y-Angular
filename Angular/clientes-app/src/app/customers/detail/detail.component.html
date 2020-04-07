@@ -14,10 +14,11 @@
 							<div class="col-sm">
 
 								<ul class="list-group text-dark mb-3" *ngIf="customer">
-									<li class="list-group-item active">{{customer.getName()}}</li>
-									<li class="list-group-item">{{customer.getSurname()}}</li>
-									<li class="list-group-item">{{customer.getEmail()}}</li>
-									<li class="list-group-item">{{customer.getCreatedAt() | date: "fullDate"}}</li>
+									<li class="list-group-item active">{{customer.name}}</li>
+									<li class="list-group-item">{{customer.surname}}</li>
+									<li class="list-group-item">{{customer.email}}</li>
+									<li class="list-group-item">{{customer.createdAt | date: "fullDate"}}</li>
+									<li class="list-group-item">{{customer.region.name}}</li>
 								</ul>
 								<div class="input-group">
 									<div class="custom-file">
@@ -38,7 +39,7 @@
 
 
 							<div class="col-sm mw-100">
-								<img class="img-thumbnail rounded" *ngIf="customer && customer.getAvatar()" src="{{url}}/uploads/img/{{customer.getAvatar()}}" alt="">
+								<img class="img-thumbnail rounded" *ngIf="customer && customer.avatar" src="{{url}}/uploads/img/{{customer.avatar}}" alt="">
 							</div>
 						</div>
 					</div>
