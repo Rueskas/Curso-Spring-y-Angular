@@ -1,4 +1,5 @@
 import { Region } from './region';
+import { Invoice } from '../invoices/models/invoice';
 
 export class Customer {
 
@@ -9,6 +10,6 @@ export class Customer {
   createdAt: Date;
   avatar: string;
   region: Region;
-
+  invoices: Invoice[] = []
 
 }

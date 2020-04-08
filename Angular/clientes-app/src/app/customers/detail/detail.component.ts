@@ -7,6 +7,9 @@ import { HttpEventType } from '@angular/common/http';
 import { ModalService } from './modal.service';
 import { Global } from '../../../assets/global'
 import { AuthService } from 'src/app/users/auth.service';
+import { Invoice } from 'src/app/invoices/models/invoice';
+import { InvoicesService } from 'src/app/invoices/services/invoices.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'customer-detail',
@@ -21,6 +24,7 @@ export class DetailComponent implements OnInit {
   progress: number = 0;
   url = Global.URL;
   constructor(private _customerService: CustomerService,
+    private _invoiceService: InvoicesService,
     public modalService: ModalService,
     public authService: AuthService) { }
 
@@ -68,6 +72,41 @@ export class DetailComponent implements OnInit {
         })
     }
 
+  }
+
+  public deleteInvoice(invoice: Invoice): void {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        this._invoiceService.deleteInvoice(invoice.id).
+          subscribe(_ => {
+            this.customer.invoices = this.customer.invoices.filter(i => i.id != invoice.id);
+            swal.fire('Deleted', 'Invoice deleted successfully', 'success');
+          });
+
+      } else {
+        swalWithBootstrapButtons.fire(
+          'Canceled!',
+          'Invoice has not been deleted.',
+          'error'
+        );
+      }
+    })
   }
 
   closeModal() {

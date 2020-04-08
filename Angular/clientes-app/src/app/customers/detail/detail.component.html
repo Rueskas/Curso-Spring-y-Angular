@@ -42,12 +42,49 @@
 								<img class="img-thumbnail rounded" *ngIf="customer" [src]="customer.avatar != null? url+'/api/uploads/img/'+customer.avatar : 'https://api.adorable.io/avatars/512/'+customer.email" alt="">
 							</div>
 						</div>
-					</div>
-					<div class="modal-footer">
-						<button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+						<div class="row">
+							<div class="alert alert-info my4" *ngIf="customer.invoices.length == 0 else tableinvoices">
+								Customer {{customer.name}} {{customer.surname}} has not invoices
+							</div>
+							<ng-template #tableinvoices>
+								<div class="">
+
+									<table class="table table-borderer table-striped my-4">
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Description</th>
+												<th>Observations</th>
+												<th>Date</th>
+												<th>Total</th>
+												<th>Detail</th>
+												<th>Delete</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor="let invoice of customer.invoices">
+												<td>{{invoice.id}}</td>
+												<td>{{invoice.description}}</td>
+												<td>{{invoice.observations}}</td>
+												<td>{{invoice.createdAt}}</td>
+												<td>{{invoice.total}}</td>
+												<td><button type="button" class="btn btn-primary btn-sm" name="button" [routerLink]="['/invoices', invoice.id]">Go</button></td>
+												<td><button type="button" class="btn btn-danger btn-sm" name="button" (click)="deleteInvoice(invoice)">Delete</button></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+							</ng-template>
+
+
+						</div>
+						<div class="modal-footer">
+							<button (click)="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
 
-	</div>
+		</div>
