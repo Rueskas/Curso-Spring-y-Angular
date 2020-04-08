@@ -19,6 +19,7 @@ import javax.persistence.TemporalType;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.AllArgsConstructor;
@@ -40,17 +41,10 @@ public class Product implements Serializable{
 	@Column(name="created_at")
 	@Temporal(TemporalType.DATE)	
 	private Date createdAt;
-	
-	@JsonProperty("items")
-	@ToString.Exclude
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="product")
-	private Set<InvoiceItem> items = new HashSet<>();
-	
 
 	public Long getId() {
 		return id;
 	}
-
 
 
 	public void setId(Long id) {
@@ -58,11 +52,9 @@ public class Product implements Serializable{
 	}
 
 
-
 	public String getName() {
 		return name;
 	}
-
 
 
 	public void setName(String name) {
@@ -70,11 +62,9 @@ public class Product implements Serializable{
 	}
 
 
-
 	public Double getPrice() {
 		return price;
 	}
-
 
 
 	public void setPrice(Double price) {
@@ -82,30 +72,14 @@ public class Product implements Serializable{
 	}
 
 
-
 	public Date getCreatedAt() {
 		return createdAt;
 	}
 
 
-
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-
-
-	@JsonIgnore
-	public Set<InvoiceItem> getItems() {
-		return items;
-	}
-
-
-	@JsonIgnore
-	public void setItems(Set<InvoiceItem> items) {
-		this.items = items;
-	}
-
-
 
 	/**
 	 * 

@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.iessanvicente.springboot.backend.apirest.models.dao.ICustomerDao;
 import com.iessanvicente.springboot.backend.apirest.models.dao.IInvoiceDao;
+import com.iessanvicente.springboot.backend.apirest.models.dao.IProductDao;
 import com.iessanvicente.springboot.backend.apirest.models.entity.Customer;
 import com.iessanvicente.springboot.backend.apirest.models.entity.Invoice;
+import com.iessanvicente.springboot.backend.apirest.models.entity.Product;
 import com.iessanvicente.springboot.backend.apirest.models.entity.Region;
 
 //@RequiredArgsConstructor 
@@ -23,6 +25,8 @@ public class CustomerServiceImpl implements ICustomerService {
 	private ICustomerDao customerDao;
 	@Autowired
 	private IInvoiceDao invoiceDao;
+	@Autowired
+	private IProductDao productDao;
 	
 	//Se puede omitir Transaccional por que ya está en CrudRepository
 	@Override
@@ -82,6 +86,12 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Override
 	public void deleteInvoiceById(Long id) {
 		invoiceDao.deleteById(id);
+	}
+
+	@Override
+	public List<Product> findProductsStartingWith(String sentence) {
+		return productDao.findByNameContainsIgnoreCase(sentence);
+		
 	}
 
 

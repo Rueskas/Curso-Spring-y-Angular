@@ -17,11 +17,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 
@@ -36,14 +32,13 @@ public class InvoiceItem implements Serializable{
 	private Long id;
 
 	private int amount;
-	
 	@JsonIgnore
 	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name="invoice_id")
 	private Invoice invoice;
 	
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "items"})
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Product product;
 	
@@ -55,37 +50,25 @@ public class InvoiceItem implements Serializable{
 		return id;
 	}
 
-
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
-
 
 	public int getAmount() {
 		return amount;
 	}
 
-
-
-
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
-
-
-	@JsonIgnore
 	public Invoice getInvoice() {
 		return invoice;
 	}
 
 
 
-	@JsonIgnore
+
 	public void setInvoice(Invoice invoice) {
 		this.invoice = invoice;
 	}

@@ -1,6 +1,7 @@
 package com.iessanvicente.springboot.backend.apirest.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iessanvicente.springboot.backend.apirest.models.entity.Invoice;
+import com.iessanvicente.springboot.backend.apirest.models.entity.Product;
 import com.iessanvicente.springboot.backend.apirest.models.services.CustomerServiceImpl;
 
 @RestController
@@ -40,5 +43,10 @@ public class InvoiceRestController {
 	public ResponseEntity<?> postInvoice(@PathVariable Long id) {
 		customerService.deleteInvoiceById(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@GetMapping("/invoices/filter-products/{filter}")
+	public ResponseEntity<?> findProducts(@PathVariable String filter){
+		return ResponseEntity.ok(customerService.findProductsStartingWith(filter));
 	}
 }

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 import com.iessanvicente.springboot.backend.apirest.models.entity.Customer;
 import com.iessanvicente.springboot.backend.apirest.models.entity.Invoice;
+import com.iessanvicente.springboot.backend.apirest.models.entity.Product;
 import com.iessanvicente.springboot.backend.apirest.models.entity.Region;
 
 public interface ICustomerService {
@@ -20,4 +21,5 @@ public interface ICustomerService {
 	public Invoice findInvoiceById(Long id);
 	public Invoice saveInvoice(Invoice invoice);
 	public void deleteInvoiceById(Long id);
+	public List<Product> findProductsStartingWith(String sentence);
 }
