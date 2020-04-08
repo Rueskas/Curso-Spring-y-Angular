@@ -12,7 +12,7 @@ import { FormComponent } from './customers/form.component';
 import { CustomerService } from './customers/customer.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -23,6 +23,10 @@ import { RoleGuard } from './users/guards/role.guard';
 import { TokenInterceptor } from './users/interceptors/token.interceptor';
 import { AuthInterceptor } from './users/interceptors/auth.interceptor';
 import { InvoiceDetailComponent } from './invoices/invoice-detail.component';
+import { InvoicesComponent } from './invoices/invoices.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 const routes: Routes = [
   { path: '', redirectTo: '/customers', pathMatch: 'full' },
@@ -32,6 +36,7 @@ const routes: Routes = [
   { path: 'customers/form', component: FormComponent, canActivate: [RoleGuard, AuthGuard], data: { role: 'ROLE_ADMIN' } },
   { path: 'customers/form/:id', component: FormComponent, canActivate: [RoleGuard, AuthGuard], data: { role: 'ROLE_ADMIN' } },
   { path: 'login', component: LoginComponent },
+  { path: 'invoices/form/:customerId', component: InvoicesComponent },
   { path: 'invoices/:id', component: InvoiceDetailComponent }
 ]
 
@@ -46,7 +51,8 @@ const routes: Routes = [
     PaginatorComponent,
     DetailComponent,
     LoginComponent,
-    InvoiceDetailComponent
+    InvoiceDetailComponent,
+    InvoicesComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +61,11 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     BrowserAnimationsModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatFormFieldModule,
+    ReactiveFormsModule
   ],
   providers: [CustomerService,
     { provide: LOCALE_ID, useValue: 'en-US' },

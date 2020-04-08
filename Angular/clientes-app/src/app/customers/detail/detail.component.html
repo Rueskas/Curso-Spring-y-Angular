@@ -42,7 +42,9 @@
 								<img class="img-thumbnail rounded" *ngIf="customer" [src]="customer.avatar != null? url+'/api/uploads/img/'+customer.avatar : 'https://api.adorable.io/avatars/512/'+customer.email" alt="">
 							</div>
 						</div>
-
+						<div class="row">
+							<button type="button" name="button" class="btn col-sm btn-info" [routerLink]="['/invoices/form/', customer.id]">New Invoice</button>
+						</div>
 						<div class="row">
 							<div class="alert alert-info my4" *ngIf="customer.invoices.length == 0 else tableinvoices">
 								Customer {{customer.name}} {{customer.surname}} has not invoices

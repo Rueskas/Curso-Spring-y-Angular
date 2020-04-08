@@ -6,6 +6,7 @@ import { Invoice } from '../models/invoice';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import swal from 'sweetalert2';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +31,9 @@ export class InvoicesService {
 
   public deleteInvoice(id: number): Observable<void> {
     return this._http.delete<void>(this.url + "/" + id);
+  }
+
+  public findProducts(filter: string): Observable<Product[]> {
+    return this._http.get<Product[]>(this.url + "/filter-products/" + filter);
   }
 }

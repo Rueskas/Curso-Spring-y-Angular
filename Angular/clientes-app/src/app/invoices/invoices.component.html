@@ -1,0 +1,53 @@
+<div class="card bg-light">
+	<div class="card-header">
+		{{title}}: {{invoice.description}}
+	</div>
+	<div class="card-body">
+		<h4 class=title-header>
+			<a [routerLink]="['/customers']" class="btn btn-light btn-xs">&laquo; Back</a>
+		</h4>
+
+		<form action="">
+			<div class="form-group row" *ngIf="invoice.customer">
+				<label for="customer" class="col-sm-2 col-form-label">Customer:</label>
+				<div class="col-sm-8">
+					<input name=customer type="text" class="form-control" value="{{invoice.customer.name}} {{invoice.customer.surname}}" disabled>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="description" class="col-sm-2 col-form-label">Description:</label>
+				<div class="col-sm-8">
+					<input name=description type="text" class="form-control" [(ngModel)]="invoice.description">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="observations" class="col-sm-2 col-form-label">Observations:</label>
+				<div class="col-sm-8">
+					<textarea name="observations" class="form-control" [(ngModel)]="invoice.observations"></textarea>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-sm-2">
+				</div>
+				<div class="col-sm-8">
+					<mat-form-field>
+						<input type="text" placeholder="Add Product" aria-label="Products" matInput [formControl]="autocompleteControl" [matAutocomplete]="auto">
+						<mat-autocomplete #auto="matAutocomplete" [displayWith]="showName">
+							<mat-option *ngFor="let product of filteredProducts | async" [value]="product">
+								{{product.name}}
+							</mat-option>
+						</mat-autocomplete>
+					</mat-form-field>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-sm-3"></div>
+				<div class="col-sm-6">
+					<input type="submit" class="form-control btn btn-primary" value="Create" (click)="createInvoice()">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
