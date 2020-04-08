@@ -6,6 +6,7 @@ import swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { ModalService } from './modal.service';
 import { Global } from '../../../assets/global'
+import { AuthService } from 'src/app/users/auth.service';
 
 @Component({
   selector: 'customer-detail',
@@ -20,7 +21,8 @@ export class DetailComponent implements OnInit {
   progress: number = 0;
   url = Global.URL;
   constructor(private _customerService: CustomerService,
-    public modalService: ModalService) { }
+    public modalService: ModalService,
+    public authService: AuthService) { }
 
   ngOnInit(): void {
 		/*

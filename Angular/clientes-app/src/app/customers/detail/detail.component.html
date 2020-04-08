@@ -20,7 +20,7 @@
 									<li class="list-group-item">{{customer.createdAt | date: "fullDate"}}</li>
 									<li class="list-group-item">{{customer.region.name}}</li>
 								</ul>
-								<div class="input-group">
+								<div class="input-group" *ngIf="authService.hasRole('ROLE_ADMIN')">
 									<div class="custom-file">
 										<input (change)="setAvatar($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
 										<label class="custom-file-label" for="inputGroupFile04">{{selectedAvatar? selectedAvatar.name : 'Choose avatar'}}</label>
@@ -39,7 +39,7 @@
 
 
 							<div class="col-sm mw-100">
-								<img class="img-thumbnail rounded" *ngIf="customer && customer.avatar" src="{{url}}/uploads/img/{{customer.avatar}}" alt="">
+								<img class="img-thumbnail rounded" *ngIf="customer" [src]="customer.avatar != null? url+'/api/uploads/img/'+customer.avatar : 'https://api.adorable.io/avatars/512/'+customer.email" alt="">
 							</div>
 						</div>
 					</div>

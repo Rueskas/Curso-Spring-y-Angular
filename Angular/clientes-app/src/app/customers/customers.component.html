@@ -4,26 +4,26 @@
 	<div class="card-header">Customers</div>
 	<div class="card-body">
 		<div class="mb-4">
-			<button type="button" name="button" class="btn btn-primary brn-rounded" [routerLink]="['/customers/form']">
+			<button *ngIf="authService.hasRole('ROLE_ADMIN')" type="button" name="button" class="btn btn-primary brn-rounded" [routerLink]="['/customers/form']">
 				Create Customer
 			</button>
 		</div>
 		<table class="table table-bordered" *ngIf="customers?.length > 0 else adviseIsEmpty">
 			<thead>
 				<tr>
-					<th>Id</th>
+					<th *ngIf="authService.hasRole('ROLE_USER')">#</th>
 					<th>Name</th>
 					<th>Surname</th>
 					<th>Email</th>
 					<th>Created At</th>
-					<th>Edit</th>
-					<th>Delete</th>
+					<th *ngIf="authService.hasRole('ROLE_ADMIN')">Edit</th>
+					<th *ngIf="authService.hasRole('ROLE_ADMIN')">Delete</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr *ngFor="let customer of customers">
-					<td style="width: 100px">
-						<img style="width: 64px;cursor:pointer;" class="img-thumbnail rounded" (click)="selectCustomer(customer)" [src]="customer.avatar != null? url+'/uploads/img/' + customer.avatar : 'https://api.adorable.io/avatars/64/'+customer.email"
+					<td style="width: 100px" *ngIf="authService.hasRole('ROLE_USER')">
+						<img style="width: 64px;cursor:pointer;" class="img-thumbnail rounded" (click)="selectCustomer(customer)" [src]="customer.avatar != null? url+'/api/uploads/img/' + customer.avatar : 'https://api.adorable.io/avatars/64/'+customer.email"
 							alt="">
 
 						<!--<button class="btn col-sm btn-primary">
@@ -35,12 +35,12 @@
 					<td>{{customer.surname | uppercase}}</td>
 					<td>{{customer.email}}</td>
 					<td>{{customer.createdAt | date:'EEEE dd, MMMM yyyy'}}</td>
-					<td style="width: 100px">
+					<td style="width: 100px" *ngIf="authService.hasRole('ROLE_ADMIN')">
 
 						<button type="button" name="button" class="btn col-sm btn-success" [routerLink]="['/customers/form/', customer.id]">Edit</button>
 
 					</td>
-					<td style="width: 40px">
+					<td style="width: 40px" *ngIf="authService.hasRole('ROLE_ADMIN')">
 
 						<button type="button" name="button" class="btn col-sm btn-danger" (click)="delete(customer)">Delete</button>
 

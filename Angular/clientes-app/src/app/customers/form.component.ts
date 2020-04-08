@@ -27,10 +27,8 @@ export class FormComponent implements OnInit {
       let id = params['id'];
       console.log(id);
       if (id) {
-        console.log("si");
         this._customerService.getCustomer(id).subscribe(
           c => {
-            console.log(c);
             this.customer = c;
           }
         )

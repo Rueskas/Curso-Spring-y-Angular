@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router'
 import { tap } from 'rxjs/operators';
 import { ModalService } from './detail/modal.service';
 import { Global } from '../../assets/global'
+import { AuthService } from '../users/auth.service';
 
 @Component({
   selector: 'app-customers',
@@ -17,7 +18,9 @@ export class CustomersComponent implements OnInit {
   selectedCustomer: Customer;
   url = Global.URL;
   constructor(private _customerService: CustomerService,
-    private _activatedRoute: ActivatedRoute, private _modalService: ModalService) {
+    private _activatedRoute: ActivatedRoute,
+    private _modalService: ModalService,
+    public authService: AuthService) {
   }
 
   ngOnInit(): void {

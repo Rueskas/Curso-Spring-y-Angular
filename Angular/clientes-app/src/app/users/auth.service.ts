@@ -29,7 +29,7 @@ export class AuthService {
     if (this._token != null) {
       return this._token;
     } else if (sessionStorage.getItem('token')) {
-      this._token = sessionStorage.getItem('user');
+      this._token = sessionStorage.getItem('token');
       return this._token;
     } else {
       return null;
@@ -43,11 +43,18 @@ export class AuthService {
       'Content-type': 'application/x-www-form-urlencoded',
       'Authorization': 'Basic ' + credentials
     });
+
     let params = new URLSearchParams();
     params.set('grant_type', 'password');
     params.set('username', user.username);
     params.set('password', user.password);
     return this._http.post(urlEndPoint, params.toString(), { headers: httpHeaders });
+  }
+
+  logout() {
+    this._token = null;
+    this._user = null;
+    sessionStorage.clear();
   }
 
   saveUser(access_token: string) {
@@ -70,5 +77,23 @@ export class AuthService {
       return JSON.parse(atob(token.split(".")[1]));
     }
     return null;
+  }
+
+  isAuthenticated(): boolean {
+    let payload = this.getDataFromToken(this.token);
+
+    if (payload != null && payload.user_name && payload.user_name.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  hasRole(role: string): boolean {
+    if (this.user.roles.includes(role)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
