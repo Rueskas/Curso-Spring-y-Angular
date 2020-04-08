@@ -28,23 +28,22 @@ INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (6,'Ma
 INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (7,'Rubén', 'Díaz', 'Ruben@email.com', '2020-04-03');
 
 
+/* Populate tabla productos */
+INSERT INTO products (name, price, created_at) VALUES('Panasonic Screen LCD', 259990, NOW());
+INSERT INTO products (name, price, created_at) VALUES('Sony Digital Camera DSC-W320B', 123490, NOW());
+INSERT INTO products (name, price, created_at) VALUES('Apple iPod shuffle', 1499990, NOW());
+INSERT INTO products (name, price, created_at) VALUES('Sony Notebook Z110', 37990, NOW());
+INSERT INTO products (name, price, created_at) VALUES('Hewlett Packard Multifuncional F2280', 69990, NOW());
+INSERT INTO products (name, price, created_at) VALUES('Bianchi Cycle Aro 26', 69990, NOW());
+INSERT INTO products (name, price, created_at) VALUES('Mica Comoda 5 Cajones', 299990, NOW());
 
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (1,'Sergio', 'Rueskas', 'Rueskas@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (1,'Belén', 'Rueskas', 'Belen@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (2,'Laura', 'Díaz', 'Diaz@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (3,'Antonio', 'Arroyo', 'Arroyo@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (4,'Sergio', 'Requena', 'Requena@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (8,'Silvia', 'Llopis', 'Llopis@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (8,'Marina', 'Crespo', 'Crespo@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (8,'Rubén', 'Díaz', 'Ruben@email.com', '2020-04-03');
+/* Creamos algunas invoices */
+INSERT INTO invoices (description, observations, customer_id, created_at) VALUES('Office Invoice', null, 1, NOW());
+	
+INSERT INTO invoice_item (amount, invoice_id, product_id) VALUES(1, 1, 1);
+INSERT INTO invoice_item (amount, invoice_id, product_id) VALUES(2, 1, 4);
+INSERT INTO invoice_item (amount, invoice_id, product_id) VALUES(1, 1, 5);
+INSERT INTO invoice_item (amount, invoice_id, product_id) VALUES(1, 1, 7);
 
-
-
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (2,'Sergio', 'Rueskas', 'Rueskas@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (3,'Belén', 'Rueskas', 'Belen@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (3,'Laura', 'Díaz', 'Diaz@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (3,'Antonio', 'Arroyo', 'Arroyo@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (4,'Sergio', 'Requena', 'Requena@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (1,'Silvia', 'Llopis', 'Llopis@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (1,'Marina', 'Crespo', 'Crespo@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (5,'Rubén', 'Díaz', 'Ruben@email.com', '2020-04-03');
+INSERT INTO invoices (description, observations, customer_id, created_at) VALUES('Cycle Invoice', 'Some important annotation!', 1, NOW());
+INSERT INTO invoice_item (amount, invoice_id, product_id) VALUES(3, 2, 6);

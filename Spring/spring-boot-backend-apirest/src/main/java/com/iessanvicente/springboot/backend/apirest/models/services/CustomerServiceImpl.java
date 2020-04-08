@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.iessanvicente.springboot.backend.apirest.models.dao.ICustomerDao;
+import com.iessanvicente.springboot.backend.apirest.models.dao.IInvoiceDao;
 import com.iessanvicente.springboot.backend.apirest.models.entity.Customer;
+import com.iessanvicente.springboot.backend.apirest.models.entity.Invoice;
 import com.iessanvicente.springboot.backend.apirest.models.entity.Region;
 
 //@RequiredArgsConstructor 
@@ -19,6 +21,8 @@ public class CustomerServiceImpl implements ICustomerService {
 	//Con @RequiredArgsConstructor de Lombok no es necesario las anotaciones Autowired
 	@Autowired
 	private ICustomerDao customerDao;
+	@Autowired
+	private IInvoiceDao invoiceDao;
 	
 	//Se puede omitir Transaccional por que ya está en CrudRepository
 	@Override
@@ -63,6 +67,21 @@ public class CustomerServiceImpl implements ICustomerService {
 	@Transactional(readOnly = true)
 	public List<Region> findAllRegions() {
 		return customerDao.findAllRegions();
+	}
+
+	@Override
+	public Invoice findInvoiceById(Long id) {
+		return invoiceDao.findById(id).orElse(null);
+	}
+
+	@Override
+	public Invoice saveInvoice(Invoice invoice) {
+		return invoiceDao.save(invoice);
+	}
+
+	@Override
+	public void deleteInvoiceById(Long id) {
+		invoiceDao.deleteById(id);
 	}
 
 
