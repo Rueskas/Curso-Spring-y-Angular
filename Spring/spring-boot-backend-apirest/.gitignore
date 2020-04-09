@@ -72,3 +72,4 @@ secrets.yml
 .gradletasknamecache
 .sts4-cache
 upload-dir/
+application.properties

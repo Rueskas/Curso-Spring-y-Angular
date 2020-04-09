@@ -5,7 +5,7 @@ import { CustomerService } from '../customer.service';
 import swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
 import { ModalService } from './modal.service';
-import { Global } from '../../../assets/global'
+import { Global } from '../../global';
 import { AuthService } from 'src/app/users/auth.service';
 import { Invoice } from 'src/app/invoices/models/invoice';
 import { InvoicesService } from 'src/app/invoices/services/invoices.service';

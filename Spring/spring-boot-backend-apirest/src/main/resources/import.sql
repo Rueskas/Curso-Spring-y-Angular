@@ -19,13 +19,13 @@ INSERT INTO regions(name) VALUES('Antarctic');
 
 
 INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (1,'Sergio', 'Rueskas', 'Rueskas@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (1,'Belén', 'Rueskas', 'Belen@email.com', '2020-04-03');
+INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (1,'Belen', 'Rueskas', 'Belen@email.com', '2020-04-03');
 INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (2,'Laura', 'Díaz', 'Diaz@email.com', '2020-04-03');
 INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (3,'Antonio', 'Arroyo', 'Arroyo@email.com', '2020-04-03');
 INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (4,'Sergio', 'Requena', 'Requena@email.com', '2020-04-03');
 INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (5,'Silvia', 'Llopis', 'Llopis@email.com', '2020-04-03');
 INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (6,'Marina', 'Crespo', 'Crespo@email.com', '2020-04-03');
-INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (7,'Rubén', 'Díaz', 'Ruben@email.com', '2020-04-03');
+INSERT INTO customers(region_id, name, surname, email, created_at) VALUES (7,'Ruben', 'Diaz', 'Ruben@email.com', '2020-04-03');
 
 
 /* Populate tabla productos */
@@ -33,7 +33,7 @@ INSERT INTO products (name, price, created_at) VALUES('Panasonic Screen LCD', 25
 INSERT INTO products (name, price, created_at) VALUES('Sony Digital Camera DSC-W320B', 123490, NOW());
 INSERT INTO products (name, price, created_at) VALUES('Apple iPod shuffle', 1499990, NOW());
 INSERT INTO products (name, price, created_at) VALUES('Sony Notebook Z110', 37990, NOW());
-INSERT INTO products (name, price, created_at) VALUES('Hewlett Packard Multifuncional F2280', 69990, NOW());
+INSERT INTO products (name, price, created_at) VALUES('Hewlett Packard Multifunctional F2280', 69990, NOW());
 INSERT INTO products (name, price, created_at) VALUES('Bianchi Cycle Aro 26', 69990, NOW());
 INSERT INTO products (name, price, created_at) VALUES('Mica Comoda 5 Cajones', 299990, NOW());
 

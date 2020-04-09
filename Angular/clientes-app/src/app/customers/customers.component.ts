@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router'
 import { tap } from 'rxjs/operators';
 import { ModalService } from './detail/modal.service';
-import { Global } from '../../assets/global'
+import { Global } from '../global';
 import { AuthService } from '../users/auth.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class CustomersComponent implements OnInit {
   url = Global.URL;
   constructor(private _customerService: CustomerService,
     private _activatedRoute: ActivatedRoute,
-    private _modalService: ModalService,
+    public modalService: ModalService,
     public authService: AuthService) {
   }
 
@@ -42,7 +42,7 @@ export class CustomersComponent implements OnInit {
         .subscribe();
     });
 
-    this._modalService.notifyUpload.subscribe(c => {
+    this.modalService.notifyUpload.subscribe(c => {
       this.customers.filter(custom => custom.id == c.id)[0].avatar = c.avatar;
     });
   }
@@ -89,6 +89,6 @@ export class CustomersComponent implements OnInit {
 
   public selectCustomer(customer: Customer) {
     this.selectedCustomer = customer;
-    this._modalService.openModal();
+    this.modalService.openModal();
   }
 }

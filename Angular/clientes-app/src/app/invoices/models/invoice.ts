@@ -9,6 +9,10 @@ export class Invoice {
   items: InvoiceItem[] = [];
   customer: Customer;
   get total() {
-    return this.items.map(item => item.price).reduce((sum, current) => sum + current);
+    if (this.items.length > 0) {
+      return this.items.map(item => item.price).reduce((sum, current) => sum + current);
+    } else {
+      return 0;
+    }
   }
 }

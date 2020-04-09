@@ -1,8 +1,12 @@
 import { Product } from './product';
 
 export class InvoiceItem {
-  id: number = 1;
-  ammount: number;
+  id: number;
+  amount: number = 1;
   product: Product;
-  price: number;
+  private _price: number;
+  get price(): number {
+    return this.amount * this.product.price;
+  }
+
 }

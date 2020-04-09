@@ -57,6 +57,7 @@ export class FormComponent implements OnInit {
   }
 
   public update(): void {
+    this.customer.invoices = null;
     this._customerService.putCustomer(this.customer).subscribe(
       _ => {
         Swal.fire('Edited!', `Customer ${this.customer.name} has been edited successfully.`, 'success');

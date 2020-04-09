@@ -12,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
@@ -53,7 +54,8 @@ public class Invoice implements Serializable{
 	private Customer customer;
 	
 	@JsonIgnoreProperties({"invoice"})
-	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL, mappedBy="invoice")
+	@OneToMany(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="invoice_id")
 	private Set<InvoiceItem> items = new HashSet<>();
 	
 	

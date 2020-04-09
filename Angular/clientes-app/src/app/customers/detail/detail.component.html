@@ -42,7 +42,7 @@
 								<img class="img-thumbnail rounded" *ngIf="customer" [src]="customer.avatar != null? url+'/api/uploads/img/'+customer.avatar : 'https://api.adorable.io/avatars/512/'+customer.email" alt="">
 							</div>
 						</div>
-						<div class="row">
+						<div class="row" *ngIf="authService.hasRole('ROLE_ADMIN')">
 							<button type="button" name="button" class="btn col-sm btn-info" [routerLink]="['/invoices/form/', customer.id]">New Invoice</button>
 						</div>
 						<div class="row">
@@ -61,7 +61,7 @@
 												<th>Date</th>
 												<th>Total</th>
 												<th>Detail</th>
-												<th>Delete</th>
+												<th *ngIf="authService.hasRole('ROLE_ADMIN')">Delete</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -72,7 +72,7 @@
 												<td>{{invoice.createdAt}}</td>
 												<td>{{invoice.total}}</td>
 												<td><button type="button" class="btn btn-primary btn-sm" name="button" [routerLink]="['/invoices', invoice.id]">Go</button></td>
-												<td><button type="button" class="btn btn-danger btn-sm" name="button" (click)="deleteInvoice(invoice)">Delete</button></td>
+												<td><button type="button" class="btn btn-danger btn-sm" name="button" (click)="deleteInvoice(invoice)" *ngIf="authService.hasRole('ROLE_ADMIN')">Delete</button></td>
 											</tr>
 										</tbody>
 									</table>

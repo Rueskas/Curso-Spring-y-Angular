@@ -7,7 +7,7 @@
 			<a [routerLink]="['/customers']" class="btn btn-light btn-xs">&laquo; Back</a>
 		</h4>
 
-		<form action="">
+		<form #invoiceform="ngForm">
 			<div class="form-group row" *ngIf="invoice.customer">
 				<label for="customer" class="col-sm-2 col-form-label">Customer:</label>
 				<div class="col-sm-8">
@@ -17,7 +17,16 @@
 			<div class="form-group row">
 				<label for="description" class="col-sm-2 col-form-label">Description:</label>
 				<div class="col-sm-8">
-					<input name=description type="text" class="form-control" [(ngModel)]="invoice.description">
+					<input name=description type="text" class="form-control" [(ngModel)]="invoice.description" required #description="ngModel">
+
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-sm-2">
+				</div>
+				<div class="alert alert-danger col-sm-8" *ngIf="description.invalid && description.touched || description.invalid && invoiceform.submitted">
+					You must fill the description
 				</div>
 			</div>
 			<div class="form-group row">
@@ -28,24 +37,55 @@
 			</div>
 
 			<div class="form-group row">
-				<div class="col-sm-2">
-				</div>
-				<div class="col-sm-8">
+				<div class="col-sm-3">
 					<mat-form-field>
 						<input type="text" placeholder="Add Product" aria-label="Products" matInput [formControl]="autocompleteControl" [matAutocomplete]="auto">
-						<mat-autocomplete #auto="matAutocomplete" [displayWith]="showName">
+						<mat-autocomplete #auto="matAutocomplete" [displayWith]="showName" (optionSelected)="selectProduct($event)">
 							<mat-option *ngFor="let product of filteredProducts | async" [value]="product">
 								{{product.name}}
 							</mat-option>
 						</mat-autocomplete>
 					</mat-form-field>
 				</div>
+
 			</div>
+			<div class="alert alert-danger" *ngIf="autocompleteControl.touched && invoice.items.length == 0 || invoice.items.length == 0 && invoiceform.submitted">
+				You must select some product
+			</div>
+			<div class="alert alert-info my4" *ngIf="invoice.items.length == 0 else tablelines">
+				Invoice has not items. You should select some product.
+			</div>
+			<ng-template #tablelines>
+
+				<table class="table table-striped table-hover table-sm">
+					<thead>
+						<tr>
+							<th>Product</th>
+							<th>Price</th>
+							<th>Amount</th>
+							<th>Total</th>
+							<th>Remove</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr *ngFor="let item of invoice.items">
+							<td>{{item.product.name}}</td>
+							<td>{{item.product.price}}</td>
+							<td><input type="number" value="{{item.amount}}" class="form-control col-sm-4" (change)="updateAmount(item.product.id, $event)"></td>
+							<td>{{item.price}}</td>
+							<td><button class="btn btn-danger btn-sm" type=button (click)="removeItem(item)">X</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<h2 class="float-right mr-4"><strong>TOTAL: </strong><span class="badge badge-secondary">{{invoice.total}}</span></h2>
+
+			</ng-template>
 
 			<div class="form-group row">
 				<div class="col-sm-3"></div>
 				<div class="col-sm-6">
-					<input type="submit" class="form-control btn btn-primary" value="Create" (click)="createInvoice()">
+					<input type="submit" class="form-control btn btn-primary" value="Create" (click)="createInvoice(invoiceform)">
 				</div>
 			</div>
 		</form>

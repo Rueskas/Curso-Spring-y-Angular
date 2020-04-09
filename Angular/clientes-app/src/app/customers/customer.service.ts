@@ -4,7 +4,7 @@ import { Customer } from './customer';
 //import { CUSTOMERS } from './customers.json';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
-import { Global } from '../../assets/global';
+import { Global } from '../global';
 import { map, catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router'
 import { Region } from './region';

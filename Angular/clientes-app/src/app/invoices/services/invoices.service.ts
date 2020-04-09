@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Global } from '../../../assets/global';
+import { Global } from '../../global';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Invoice } from '../models/invoice';
@@ -35,5 +35,10 @@ export class InvoicesService {
 
   public findProducts(filter: string): Observable<Product[]> {
     return this._http.get<Product[]>(this.url + "/filter-products/" + filter);
+  }
+
+  public postInvoice(invoice: Invoice): Observable<Invoice> {
+    console.log(invoice);
+    return this._http.post<Invoice>(this.url, invoice);
   }
 }
