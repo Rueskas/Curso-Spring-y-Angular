@@ -39,7 +39,7 @@ import com.iessanvicente.springboot.backend.apirest.models.services.IUploadFileS
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = { "http://localhost:4200", "*" })
 public class CustomerRestController {
 
 	@Autowired
