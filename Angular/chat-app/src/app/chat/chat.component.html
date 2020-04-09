@@ -1,0 +1,45 @@
+<div class="card">
+	<div class="card-header">
+		<ul class="nav nav-pills card-header-pills">
+			<li class="nav-item mr-2">
+				<input [(ngModel)]="message.username" class="form-control" type="text" name="username" *ngIf="!connected" placeholder="Enter username...">
+			</li>
+			<li class="nav-item mr-2">
+				<button class="btn btn-success" type="button" (click)="connect()" [disabled]="connected || message.username.length == 0">Connect</button>
+			</li>
+			<li class="nav-item">
+				<button class="btn btn-danger" type="button" (click)="disconnect()" [disabled]="!connected">Disconnect</button>
+			</li>
+		</ul>
+	</div>
+	<div #scrollChat [scrollTop]="scrollChat.scrollHeight" class="card-body" style="overflow-y: scroll; height: 600px;">
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item my-2" [ngClass]="getClassBackground(m)" *ngFor="let m of messages">
+				<span *ngIf="m.type=='NEW_USER'">
+					<span [ngStyle]="{'color': m.color}">{{m.username}}</span> Connected
+				</span>
+				<span *ngIf="m.type=='DISCONNECT_USER'">
+					<span [ngStyle]="{'color': m.color}">{{m.username}}</span> Disconnected
+				</span>
+				<span *ngIf="m.type=='MESSAGE' && m.username == message.username">
+					{{m.date | date:'shortTime'}} <span [ngStyle]="{'color': m.color}">{{m.username}}</span>:<br />
+					{{m.text}}
+				</span>
+				<span *ngIf="m.type=='MESSAGE' && m.username != message.username">
+					{{m.date | date:'shortTime'}} <span [ngStyle]="{'color': m.color}">{{m.username}}</span>:<br />
+					{{m.text}}
+				</span>
+			</li>
+		</ul>
+	</div>
+	<div class="card-footer">
+		<form class="form-inline">
+			<div class="form-group mx-3">
+				<input (keydown)="isWritting()" type="text" class="form-control" placeholder="Send a message..." name="text" [(ngModel)]="message.text">
+			</div>
+
+			<button class="btn btn-primary" type="button" type="submit" [disabled]="!connected" (click)="sendMessage()">Send</button>
+		</form>
+		<div *ngIf="writting?.length > 0 && writting != message.username">{{writting}} is writting...</div>
+	</div>
+</div>
