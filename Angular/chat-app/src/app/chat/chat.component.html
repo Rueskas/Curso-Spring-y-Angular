@@ -12,7 +12,7 @@
 			</li>
 		</ul>
 	</div>
-	<div #scrollChat [scrollTop]="scrollChat.scrollHeight" class="card-body" style="overflow-y: scroll; height: 600px;">
+	<div #scrollChat [scrollTop]="scrollChat.scrollHeight" class="card-body" style="overflow-y:scroll; height: 600px;">
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item my-2" [ngClass]="getClassBackground(m)" *ngFor="let m of messages">
 				<span *ngIf="m.type=='NEW_USER'">
@@ -38,7 +38,7 @@
 				<input (keydown)="isWritting()" type="text" class="form-control" placeholder="Send a message..." name="text" [(ngModel)]="message.text">
 			</div>
 
-			<button class="btn btn-primary" type="button" type="submit" [disabled]="!connected" (click)="sendMessage()">Send</button>
+			<button class="btn btn-primary" type="button" type="submit" [disabled]="!connected || message.text.length == 0" (click)="sendMessage()">Send</button>
 		</form>
 		<div *ngIf="writting?.length > 0 && writting != message.username">{{writting}} is writting...</div>
 	</div>

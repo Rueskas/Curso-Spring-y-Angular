@@ -11,6 +11,7 @@ import { Message } from './models/message';
 })
 export class ChatComponent implements OnInit {
   private _client: Client;
+  private _clientId: string;
   private _url = Global.URL;
   public message: Message = new Message();
   public messages: Message[] = [];
@@ -20,6 +21,7 @@ export class ChatComponent implements OnInit {
 
   ngOnInit(): void {
     this._client = new Client();
+    this._clientId = 'id-' + new Date().getUTCMilliseconds() + '-' + Math.random().toString(36).substr(2);
 
     //Donde se tiene que conectar
     this._client.webSocketFactory = () => {
@@ -29,7 +31,6 @@ export class ChatComponent implements OnInit {
     //Hacer algo cuando se conecta
     this._client.onConnect = (frame) => {
       this.connected = true;
-      console.log("Connected: " + this._client.connected + ": " + frame);
 
       //Escucha mensajes que envia el servidor
       this._client.subscribe('/chat/message', e => {
@@ -48,6 +49,15 @@ export class ChatComponent implements OnInit {
         console.log(e.body);
         setTimeout(() => this.writting = '', 1500);
       })
+
+      //Escucha cuando se envia el historial para ese clienteId
+      this._client.subscribe('/chat/history/' + this._clientId, e => {
+        const history = JSON.parse(e.body);
+        console.log(history);
+        this.messages = history.map(m => { m.date = new Date(m.date); return m; }).reverse();
+      });
+      //Le envia el cliente Id que ha inciiado sesion para recuperar el historial
+      this._client.publish({ destination: '/app/history', body: this._clientId });
       //Avisa de nueva conexion
       this.message.type = 'NEW_USER';
       this._client.publish({ destination: '/app/message', body: JSON.stringify(this.message) })
@@ -71,6 +81,7 @@ export class ChatComponent implements OnInit {
     this._client.unsubscribe('/app/message');
     this._client.deactivate();
     this.messages = [];
+    this.message = new Message();
   }
 
   public sendMessage(): void {
